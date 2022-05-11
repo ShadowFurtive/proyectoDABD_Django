@@ -14,13 +14,16 @@ Proyecto final de la asignatura de DABD, EPSEVG-UPC.
 ## Características
 
 - Proyecto realizado con [Django]
-- Uso de [GITHUB] constante
+- Uso de [GITHUB]
 - Modelación en UML del proyecto
 - Uso de [Faker] para generar datos falsos
+- Uso de terminal Windows Powershell
 - Creación del .md con [Dillinger](https://dillinger.io/)
 
 
-## Instalación
+## Despliegue y uso de Django
+
+### Instalación
 
 Para el proyecto vamos a desplegar un entorno virtual [Virtualenv](https://docs.python.org/es/3/library/venv.html).
 
@@ -50,7 +53,7 @@ Puede ser que sea necesario crear un super user para la página administrativa d
 python manage.py createsuperuser
 ```
 
-#### Ejecutar el ORM
+### Ejecutar Django
 
 Migramos los elementos en el Django
 
@@ -65,7 +68,7 @@ Y ejecutamos de forma local la página
 python manage.py runserver 8080
 ```
 
-## Generación de FakeData
+### Generación de FakeData
 
 Podemos ejecutar un comando junto con manage.py para generar los datos falsos:
 
@@ -74,7 +77,9 @@ python manage.py createdata
 ```
 [Video](https://www.youtube.com/watch?v=8LHdbaV7Dvo) en el que me he basado para hacer el comando.
 
-## ANEXO - ENUNCIADO (En catalan)
+## ANEXO
+
+### Enunciado (En catalán)
 
 La garra és un club de lluita i un gimnàs que imparteix classes de diferents formes de lluita i on també es pot entrenar amb manuelles. Amb el temps, s'han inscrit moltes persones i ara es necessita actualitzar el seu sistema Excel a mà a un sistema més avançat que permeti controlar els clients.
 
@@ -131,7 +136,7 @@ Per identificar les sol·licituds de federat es farà ús del número de la sol�
 
 Pot ocórrer que un client es desapunti i s'apunti passat uns mesos. Ens interessa no eliminar la informació que hi hagi d'ell.
 
-## ANEXO - UML 
+### UML 
 
 ![N|Solid](https://lh3.googleusercontent.com/C9RA36Il2l0JfTSggcXT1Qk52Hrw0qd0ZUStqQBVHRLmPEUwl31x3TgQ3Hck-t9Edv0A1FtaEtikuyoGgUqFH-C8hhoemH-LVFUx4vFdVcGrSHg1Vs-2xaGdIjW-BRu9LCvLqo1EXu0p7q1bYEHLWH7YzhOyNCOO7Ml3Yx3UCUGAXpM2HFoxWTrvv4h6sb9w-ilqlIPJ3qXnIVDQytmU31h9mebKF8l5sGrX0lqqS45hkCYx9grFY32cg_kXbhvckdCThZd3pX-Kznh6lZuHzbOg93_X6wpyBirwAWa7ZYxCGMNGlGgbyoWJME5PfGsG9Mhms0YZbWL5j1-uyyNkq51z6xKHLayO6DbPDFNeXmRhP5y6I8Px9tuynp1o9vaRAPqaQDZFPjV7r_9sSUFCzdvKrDPZzbstrCnNGb3hrrV9ENS7KB_rgpDJTSywZ8i2jLGHmr0A9QWQORG3aOzfwbHojQ0q-U7e2mhpb40nJGlCHdHkHHmDjpeeVx9Hp_1XoOOAovgdJVxjkMdzaPmv3Sk4oyApoj1pPa8rxqXjG_ZMii1orPFWFU-gzhRHgHHl_nqV28H6Asm66fpLFiPrfW7mn_0GJIXxW0pppOMBIY8C85fyp5M7blM81h93CktPnqLsrrWJkoZJVyfyMP-SRy-BQSfQYz1zh10nD4vl26FJnA4mPj44F2LS3Vmn4V1100uAziHQYbW7bfGDjjAu76J-IuBW-uaD1mxOe4fRp0d2EXf-chh3oHGMzuH72_Xpw9eviDfBKhPDO3hr8pKZt1LvnzIUgNIoaM_0-9VTnFG7a_nE9zFDAF2yjYf1kdGFN_cMZiOL-yKlKa6vlzxBVMogLZtjEY88IxsADEhCog=w460-h578-no?authuser=0)
 
