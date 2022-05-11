@@ -9,6 +9,9 @@ class PersonaTemplate(models.Model):
     Telefon = models.CharField(max_length=9)
     direccio = models.CharField(max_length=50)
 
+    class Meta: 
+        abstract = True
+    
     def __str__(self):
         return '{} , {} , {} , {} , {} , {}'.format(self.DNI, self.nom, self.cognom, self.DataNaix, self.Telefon, self.direccio)
 
@@ -17,51 +20,29 @@ class Compte(models.Model):
     def __str__(self):
         return 'IBAN: {} '.format(self.IBAN)
 
-class Personal(models.Model):
-    template = models.ForeignKey(PersonaTemplate, on_delete=models.CASCADE)
+class Personal(PersonaTemplate):
     compteIBAN = models.ForeignKey(Compte, on_delete=models.CASCADE)
     
     def __str__(self):
-        return '{} , {} , {} , {} , {} , {}, {}'.format(self.template.DNI, self.template.nom, self.template.cognom, self.template.DataNaix, self.template.Telefon, self.template.direccio, self.compteIBAN)
+        return 'IBAN: {} , {}'.format(self.compteIBAN, super().__str__())
 
-class Inscripcio(models.Model):
-    numInscripcio = models.IntegerField(validators=[MaxValueValidator(99999999999999)], primary_key=True)
-    tipus = models.PositiveSmallIntegerField(
-    choices=(
-        (1, "Complet"),
-        (2, "Fitness"),
-        (3, "Matins"),
-    ))
-    dataInscripcio = models.DateField()
-    client = models.ForeignKey(PersonaTemplate, on_delete=models.CASCADE)
-    def __str__(self):
-        return '{} , {} , {} , {}'.format(self.numInscripcio, self.tipus, self.dataInscripcio, self.client.nom)
-
-class HistoricPagaments(models.Model):
-    numInscripcio = models.ForeignKey(Inscripcio, on_delete=models.CASCADE)
-    data = models.DateField()
-    Pagament= models.IntegerField()
-
-    class Meta:
-        unique_together = (("numInscripcio", "data"))
-
-class Entrenador(models.Model):
-    template = models.ForeignKey(PersonaTemplate, on_delete=models.CASCADE)
+class Entrenador(PersonaTemplate):
     numFederacio = models.IntegerField(validators=[MaxValueValidator(99999999999999)], unique=True)
     compteIBAN = models.ForeignKey(Compte, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
-        return '{} , {} , {} , {} , {} , {} , {}, {}'.format(self.template.DNI, self.template.nom, self.template.cognom, self.template.DataNaix, self.template.Telefon, self.template.direccio, str(self.numFederacio), self.compteIBAN)
+        return 'numFederacio: {} , IBAN: {} , {}'.format(str(self.numFederacio), self.compteIBAN, super().__str__())
 
 class Horari(models.Model):
     data = models.DateField(primary_key=True)
     horario = models.TimeField()
-    entrenadores = models.ManyToManyField(Entrenador) 
+    entrenadores = models.ManyToManyField(Entrenador, through='Classe') 
     class Meta:
         unique_together = (("horario", "data"))
 
     def __str__(self):
         return '{} , {}'.format(self.data, self.horario)
+
 
 class Classe(models.Model):
     modalitat = models.PositiveSmallIntegerField(
@@ -82,16 +63,39 @@ class Classe(models.Model):
     class Meta:
         unique_together = (("horari", "coach"))
     def __str__(self):
-        return '{} , {}, {}, {}'.format(self.modalitat, self.tipus, self.realitzada)
+        return '{} , {}, {}'.format(self.modalitat, self.tipus, self.realitzada, self.coach.nom)
 
-class Client(models.Model):
-    template = models.ForeignKey(PersonaTemplate, on_delete=models.CASCADE)
+class Client(PersonaTemplate):
     PagementDomiciliat = models.BooleanField()
     compteIBAN = models.ForeignKey(Compte, on_delete=models.CASCADE, blank=True, null=True)
-    classes = models.ManyToManyField(Classe)
+    classes = models.ManyToManyField(Classe, blank=True)
 
     def __str__(self):
-        return '[ Pagament domiciliat: {} ] , {} , {} , {} , {} , {} , {} , {}'.format(self.PagementDomiciliat, self.template.DNI, self.template.nom, self.template.cognom, self.template.DataNaix, self.template.Telefon, self.template.direccio, self.compteIBAN)
+        return '[ Pagament domiciliat: {} ] , IBAN: {} , {} '.format(self.PagementDomiciliat, self.compteIBAN, super().__str__())
+
+class Inscripcio(models.Model):
+    numInscripcio = models.IntegerField(validators=[MaxValueValidator(99999999999999)], primary_key=True)
+    tipus = models.PositiveSmallIntegerField(
+    choices=(
+        (1, "Complet"),
+        (2, "Fitness"),
+        (3, "Matins"),
+    ))
+    dataInscripcio = models.DateField()
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    def __str__(self):
+        return '{} , {} , {} , {}'.format(self.numInscripcio, self.tipus, self.dataInscripcio, self.client.nom)
+
+class HistoricPagaments(models.Model):
+    numInscripcio = models.ForeignKey(Inscripcio, on_delete=models.CASCADE)
+    data = models.DateField()
+    Pagament= models.IntegerField()
+
+    class Meta:
+        unique_together = (("numInscripcio", "data"))
+    
+    def __str__(self):
+        return '{} , {} , {}'.format(self.numInscripcio, self.data, self.Pagament)
 
 
 class SolicitudFederacio(models.Model):
@@ -101,13 +105,13 @@ class SolicitudFederacio(models.Model):
     data = models.DateField()
     numFederacio = models.IntegerField(validators=[MaxValueValidator(99999999999999)], blank=True, null=True, unique=True)
     dataCaducitat = models.DateField(blank=True, null=True)
-    client = models.ForeignKey(PersonaTemplate, on_delete=models.CASCADE)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)
     def __str__(self):
         return '{} , {} , {} , {} , {} , {} , {}'.format(self.numero, self.pagament, self.concedida, self.data, self.numFederacio, self.dataCaducitat, self.client.nom)
 
 class Faltes(models.Model):
     dataFalta = models.DateField(primary_key=True)
-    personal = models.ForeignKey(PersonaTemplate, on_delete=models.CASCADE)
+    personal = models.ForeignKey(Personal, on_delete=models.CASCADE)
 
     def __str__(self):
         return '{} , {}'.format(self.dataFalta, self.personal.nom)

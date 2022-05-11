@@ -1,8 +1,7 @@
 from django.contrib import admin
 
-from .models import PersonaTemplate, Compte, Personal, Inscripcio, HistoricPagaments, Entrenador, Horari, Classe, Client, SolicitudFederacio, Faltes
+from .models import Compte, Personal, Inscripcio, HistoricPagaments, Entrenador, Horari, Classe, Client, SolicitudFederacio, Faltes
 
-admin.site.register(PersonaTemplate)
 admin.site.register(Compte)
 admin.site.register(Personal)
 admin.site.register(Inscripcio)
