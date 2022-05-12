@@ -34,7 +34,7 @@ class Entrenador(PersonaTemplate):
         return 'numFederacio: {} , IBAN: {} , {}'.format(str(self.numFederacio), self.compteIBAN, super().__str__())
 
 class Horari(models.Model):
-    data = models.DateField(primary_key=True)
+    data = models.DateField()
     horario = models.TimeField()
     entrenadores = models.ManyToManyField(Entrenador, through='Classe') 
     class Meta:
