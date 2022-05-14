@@ -2,12 +2,12 @@ from django.db import models
 from django.core.validators import MaxValueValidator
 # Create your models here.
 class PersonaTemplate(models.Model):
-    DNI = models.CharField(primary_key=True ,max_length=8)
+    DNI = models.CharField(primary_key=True ,max_length=9)
     nom = models.CharField(max_length=30)
     cognom = models.CharField(max_length=30)
     DataNaix = models.DateField()
     Telefon = models.CharField(max_length=9)
-    direccio = models.CharField(max_length=50)
+    direccio = models.CharField(max_length=200)
 
     class Meta: 
         abstract = True
@@ -27,7 +27,7 @@ class Personal(PersonaTemplate):
         return 'IBAN: {} , {}'.format(self.compteIBAN, super().__str__())
 
 class Entrenador(PersonaTemplate):
-    numFederacio = models.IntegerField(validators=[MaxValueValidator(99999999999999)], unique=True)
+    numFederacio = models.BigIntegerField(validators=[MaxValueValidator(99999999999999)], unique=True)
     compteIBAN = models.ForeignKey(Compte, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
@@ -74,7 +74,7 @@ class Client(PersonaTemplate):
         return '[ Pagament domiciliat: {} ] , IBAN: {} , {} '.format(self.PagementDomiciliat, self.compteIBAN, super().__str__())
 
 class Inscripcio(models.Model):
-    numInscripcio = models.IntegerField(validators=[MaxValueValidator(99999999999999)], primary_key=True)
+    numInscripcio = models.BigIntegerField(validators=[MaxValueValidator(99999999999999)], primary_key=True)
     tipus = models.PositiveSmallIntegerField(
     choices=(
         (1, "Complet"),
@@ -103,7 +103,7 @@ class SolicitudFederacio(models.Model):
     pagament = models.BooleanField()
     concedida = models.BooleanField()
     data = models.DateField()
-    numFederacio = models.IntegerField(validators=[MaxValueValidator(99999999999999)], blank=True, null=True, unique=True)
+    numFederacio = models.BigIntegerField(validators=[MaxValueValidator(99999999999999)], blank=True, null=True, unique=True)
     dataCaducitat = models.DateField(blank=True, null=True)
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     def __str__(self):

@@ -36,36 +36,38 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         fake = Faker('es_ES')
         
-        # print("Adding Comptes in database: ")
-        # for i in range(100):
-        #     print(i+1, end = '\r')
+        print("Adding Comptes in database: ")
+        for i in range(320):
+            print(i+1, end = '\r')
         #     try:
-        #         d = fake.unique.iban()
-        #         Compte.objects.create(IBAN=d)
+            d = fake.unique.iban()
+            Compte.objects.create(IBAN=d)
         #     except:
         #         pass
 
-        # print("Adding Personal in database:")
-        # for i in range(1):
-        #     print(i+1, end = '\r')
+        print("Adding Personal in database:")
+        for i in range(1):
+            print(i+1, end = '\r')
         #     try:
-        #         id = randint(10000000,99999999)
-        #         nom = fake.unique.first_name()
-        #         apellido = fake.unique.last_name()
-        #         fecha_nacimiento = fake.date_between_dates(date_start=datetime(1970,1,1), date_end=datetime(2001,12,12))
-        #         telefono=randint(100000000,999999999)
-        #         direccion=fake.unique.address()
-        #         IBAN=random.choice(Compte.objects.all())
-        #         Personal.objects.create(compteIBAN=IBAN, DNI=id, nom=nom, cognom=apellido, DataNaix=fecha_nacimiento, Telefon=telefono, direccio=direccion)
-        #     except:
-        #         pass
+            id = randint(10000000,99999999)
+            id = str(id) + random.choice(letras)
+            nom = fake.unique.first_name()
+            apellido = fake.unique.last_name()
+            fecha_nacimiento = fake.date_between_dates(date_start=datetime(1970,1,1), date_end=datetime(2001,12,12))
+            telefono=randint(100000000,999999999)
+            direccion=fake.unique.address()
+            IBAN=random.choice(Compte.objects.all())
+            Personal.objects.create(compteIBAN=IBAN, DNI=id, nom=nom, cognom=apellido, DataNaix=fecha_nacimiento, Telefon=telefono, direccio=direccion)
+        # #     except:
+        # #         pass
         lista_entrenadores={}
         print("Adding Entrenador in database:")
         for i in range(10):
-            # print(i+1, end = '\r')
+            print(i+1, end = '\r')
             # try:
             list_entrenador={}
             id = randint(10000000,99999999)
+            id = str(id) + random.choice(letras)
             nom = fake.unique.first_name()
             modalidad=1
             if i > 2:
@@ -75,15 +77,15 @@ class Command(BaseCommand):
             list_entrenador["dni"]=id
             list_entrenador["modalidad"]=modalidad
             lista_entrenadores[i]=list_entrenador
-                # apellido = fake.unique.last_name()
-                # fecha_nacimiento = fake.date_between_dates(date_start=datetime(1970,1,1), date_end=datetime(2001,12,12))
-                # telefono=randint(100000000,999999999)
-                # direccion=fake.unique.address()
-                # federacion=randint(1000000000000,99999999999999)
-                # IBAN=random.choice(Compte.objects.all())
-                # Entrenador.objects.create(numFederacio=federacion ,compteIBAN=IBAN, DNI=id, nom=nom, cognom=apellido, DataNaix=fecha_nacimiento, Telefon=telefono, direccio=direccion)
-            # except:
-            #     pass
+            apellido = fake.unique.last_name()
+            fecha_nacimiento = fake.date_between_dates(date_start=datetime(1970,1,1), date_end=datetime(2001,12,12))
+            telefono=randint(100000000,999999999)
+            direccion=fake.unique.address()
+            federacion=randint(10000000000000,99999999999999)
+            IBAN=random.choice(Compte.objects.all())
+            Entrenador.objects.create(numFederacio=federacion ,compteIBAN=IBAN, DNI=id, nom=nom, cognom=apellido, DataNaix=fecha_nacimiento, Telefon=telefono, direccio=direccion)
+        #     # except:
+        #     #     pass
 
         def encontrar_entrenador_modalidad(modalidad_añadir):
             encontrado = False
@@ -121,106 +123,86 @@ class Command(BaseCommand):
                     if hora == datetime.strptime(clase["hora"], '%H:%M').time():
                         return clase["modalidad"]
             return 4
-        
-        # print(lista_entrenadores)
-        # print("Adding Horarios in database:")
-        # for i in range(200):
-        #     print(i+1, end = '\r')
-        #     date_clase= fake.date_between_dates(date_start=datetime(2022,5,1), date_end=datetime(2022,12,1))
-        #     if date_clase.weekday() < 5:
-        #         try:
-        #             hora = horas_clase[r(len(horas_clase))]
-        #             Horari.objects.create(data=date_clase, horario=hora)
-        #         except:
-        #             pass
+        print("Adding Horarios in database:")
+        for i in range(1000):
+            print(i+1, end = '\r')
+            date_clase= fake.date_between_dates(date_start=datetime(2012,5,1), date_end=datetime(2022,12,1))
+            if date_clase.weekday() < 5:
+                try:
+                    hora = horas_clase[r(len(horas_clase))]
+                    Horari.objects.create(data=date_clase, horario=hora)
+                except:
+                    pass
 
 
-        # print("Adding Clientes in database:")
-        # for i in range(300):
-        #     print(i+1, end = '\r')
-        #     try:
-        #         id = randint(10000000,99999999)
-        #         nom = fake.unique.first_name()
-        #         apellido = fake.unique.last_name()
-        #         fecha_nacimiento = fake.date_between_dates(date_start=datetime(1970,1,1), date_end=datetime(2001,12,12))
-        #         telefono=randint(100000000,999999999)
-        #         direccion=fake.unique.address()
-        #         domiciliat=str(choices([0,1], [0.4, 0.6]))
-        #         domiciliat=bool(int(domiciliat[1]))
-        #         IBAN=None
-        #         if domiciliat==True:
-        #             IBAN=random.choice(Compte.objects.all())
-        #         cliente_obj=Client.objects.create(PagementDomiciliat=domiciliat, compteIBAN=IBAN, DNI=id, nom=nom, cognom=apellido, DataNaix=fecha_nacimiento, Telefon=telefono, direccio=direccion)
-
-        #     except:
-        #         pass
+        print("Adding Clientes in database:")
+        for i in range(300):
+            print(i+1, end = '\r')
+            # try:
+            id = randint(10000000,99999999)
+            id = str(id) + random.choice(letras)
+            nom = fake.unique.first_name()
+            apellido = fake.unique.last_name()
+            fecha_nacimiento = fake.date_between_dates(date_start=datetime(1970,1,1), date_end=datetime(2001,12,12))
+            telefono=randint(100000000,999999999)
+            direccion=fake.unique.address()
+            domiciliat=str(choices([0,1], [0.4, 0.6]))
+            domiciliat=bool(int(domiciliat[1]))
+            IBAN=None
+            if domiciliat==True:
+                IBAN=random.choice(Compte.objects.all())
+            cliente_obj=Client.objects.create(PagementDomiciliat=domiciliat, compteIBAN=IBAN, DNI=id, nom=nom, cognom=apellido, DataNaix=fecha_nacimiento, Telefon=telefono, direccio=direccion)
             
-        # print("Adding Inscripcio in database:")
-        # for i in range(325):
-        #     try:
-        #         print(i+1, end = '\r')
-        #         numero_inscripcion=randint(10000000000000,99999999999999)
-        #         tipo=str(choices([1,2,3], [0.8, 0.1, 0.1]))
-        #         fecha_inscripcion = fake.date_between_dates(date_start=datetime(2012,1,1), date_end=datetime.now())
-        #         prop_insc=random.choice(Client.objects.all())
-        #         Inscripcio.objects.create(numInscripcio=numero_inscripcion,tipus=tipo[1],dataInscripcio=fecha_inscripcion,client=prop_insc)
-        #     except:
-        #         pass
-        
-        # print("Adding HistoricPagament in database:")
 
-        # inscripciones=Inscripcio.objects.all()
-        # i=0
-        # for inscripcio in inscripciones:
-        #     try:
-        #         print(i+1, end = '\r')
-        #         str_inscripcio=str(inscripcio).split(',')
-        #         date_type=datetime.strptime(str_inscripcio[2].strip(), '%Y-%m-%d').date()
-        #         first_month=True
-        #         lo_dejo=False
-        #         pagament_f=50
-        #         if str_inscripcio[1] == '2':
-        #             pagament_f=25
-        #         elif str_inscripcio[1] == '3':
-        #             pagament_f=40
-        #         while date_type < datetime.now().date() and not lo_dejo:
-        #             print("Creando nuevo historico...")
-        #             HistoricPagaments.objects.create(numInscripcio=inscripcio, data=date_type, Pagament=pagament_f)
-        #             lo_dejo=str(choices([0,1], [0.7, 0.3]))
-        #             lo_dejo=bool(int(lo_dejo[1]))
-
-        #             if first_month:
-        #                 date_type=date_type.replace(day=1)
-        #                 first_month=False
-        #             date_type = date_type + relativedelta(months=+1)
-        #         i=+1
-        #     except:
-        #         pass
+        # AÑADIMOS UNA INSCRIPCIÓN 
+            numero_inscripcion=randint(10000000,99999999)
+            tipo=str(choices([1,2,3], [0.8, 0.1, 0.1]))
+            fecha_inscripcion = fake.date_between_dates(date_start=datetime(2012,1,1), date_end=datetime.now())
+            Inscripcion_obj=Inscripcio.objects.create(numInscripcio=numero_inscripcion,tipus=tipo[1],dataInscripcio=fecha_inscripcion,client=cliente_obj)
             
-        # print("Adding SolicitudFederacio in database:")
-        # for i in range(100):
-        #     print(i+1, end = '\r')
-        #     try:
-        #         numSolFederacio=random.choice(letras)+random.choice(letras)+str(randint(10000000,99999999))
-        #         pagamentF=str(choices([0,1], [0.05, 0.95]))
-        #         pagamentF=bool(int(pagamentF[1]))
-        #         concedidaF=False
-        #         if pagamentF:
-        #             concedidaF=str(choices([0,1], [0.3, 0.7]))
-        #             concedidaF=bool(int(concedidaF[1]))
-        #         data=fake.date_between_dates(date_start=datetime(2018,1,1), date_end=datetime.now())
-        #         numero_inscripcion=None
-        #         data_final=None
-        #         if concedidaF:
-        #             numero_inscripcion=randint(10000000000000,99999999999999)
-        #             data_final = data + relativedelta(years=+1)
-        #         cliente_sol=random.choice(Client.objects.all())
-        #         SolicitudFederacio.objects.create(numero=numSolFederacio, pagament=pagamentF, concedida=concedidaF, data=data, numFederacio=numero_inscripcion, dataCaducitat=data_final, client=cliente_sol)
-        #     except:
-        #         pass
 
-        # print("Adding Clases in database:")
-        for i in range(3):
+        # AÑADIMOS HISTORICOS 
+
+            date_type=fecha_inscripcion
+            first_month=True
+            lo_dejo=False
+            pagament_f=50
+            if tipo == 2:
+                pagament_f=25
+            elif tipo == 3:
+                pagament_f=40
+            while date_type < datetime.now().date() and not lo_dejo:
+                HistoricPagaments.objects.create(numInscripcio=Inscripcion_obj, data=date_type, Pagament=pagament_f)
+                lo_dejo=str(choices([0,1], [0.9, 0.1]))
+                lo_dejo=bool(int(lo_dejo[1]))
+
+                if first_month:
+                    date_type=date_type.replace(day=1)
+                    first_month=False
+                date_type = date_type + relativedelta(months=+1)
+
+            solicitaFederacion=str(choices([0,1], [0.7, 0.3]))
+            solicitaFederacion=bool(int(solicitaFederacion[1]))
+            if solicitaFederacion:
+                numSolFederacio=random.choice(letras)+random.choice(letras)+str(randint(10000000,99999999))
+                pagamentF=str(choices([0,1], [0.05, 0.95]))
+                pagamentF=bool(int(pagamentF[1]))
+                concedidaF=False
+                if pagamentF:
+                    concedidaF=str(choices([0,1], [0.3, 0.7]))
+                    concedidaF=bool(int(concedidaF[1]))
+                data=fake.date_between_dates(date_start=fecha_inscripcion, date_end=date_type)
+                numero_inscripcion_f=None
+                data_final=None
+                if concedidaF:
+                    numero_inscripcion_f=randint(10000000000000,99999999999999)
+                    data_final = data + relativedelta(years=+1)
+                SolicitudFederacio.objects.create(numero=numSolFederacio, pagament=pagamentF, concedida=concedidaF, data=data, numFederacio=numero_inscripcion_f, dataCaducitat=data_final, client=cliente_obj)
+            
+            
+
+        print("Adding Clases in database:")
+        for i in range(1000):
             print(i+1, end='\r')
             tipo=randint(1,2)
             date_clase=random.choice(Horari.objects.all())
@@ -233,36 +215,57 @@ class Command(BaseCommand):
                 valor=bool(int(valor[1]))
                 id=encontrar_entrenador_modalidad(model)
                 entrenador=lista_entrenadores[id]
-                if  date_type.weekday() == 3:
-                    if  time_type <  datetime.strptime('13:00', '%H:%M').time():
-                        tipo=3
-                elif  date_type.weekday() == 4:
-                    if  time_type > datetime.strptime('17:00', '%H:%M').time():
-                        tipo=3
-                # Classe.objects.create(modalitat=model, tipus=tipo, realitzada=valor, coach=entrenador, horari=date_clase)
-                numParticipants=randint(1,2)
-                encontrado=False
-                tipo=3
-                for _ in range(numParticipants):
-                    # try:
-                    cliente_obj=Client.objects.get(DNI=18079603)
-                    print(cliente_obj)
-                    if tipo == 3:
-                        solFederacio=cliente_obj.solicitudfederacio_set.all()
-                        if solFederacio:
-                            #import pdb; pdb.set_trace()
-                            if solFederacio[0].concedida and solFederacio[0].dataCaducitat > date.today():
-                                print("Puedo participar en la clase")
-                                # cliente_obj.classes.add(Classe)
-                    # except:
-                    #     pass
-            else:
+                entrenador_obj=Entrenador.objects.get(DNI=entrenador["dni"])
+                existeix = Classe.objects.filter(coach=entrenador_obj, horari=date_clase)
+                if not existeix:
+                    if  date_type.weekday() == 3:
+                        if  time_type <  datetime.strptime('13:00', '%H:%M').time():
+                            tipo=3
+                    elif  date_type.weekday() == 4:
+                        if  time_type > datetime.strptime('17:00', '%H:%M').time():
+                            tipo=3
+                    clase_obj=Classe.objects.create(modalitat=model, tipus=tipo, realitzada=valor, coach=entrenador_obj, horari=date_clase)
+                    numParticipants=randint(8,25)
+                    for _ in range(numParticipants):
+                        # try:
+                        cliente_obj=random.choice(Client.objects.all())
+                        List_inscripcion=cliente_obj.inscripcio_set.all()
+                        inscrito=False
+                        tipus_insc=2
+                        if List_inscripcion:
+                            for inscripcion in List_inscripcion:
+                                List_Historic=inscripcion.historicpagaments_set.latest('data')
+                                primer_historic=inscripcion.historicpagaments_set.first()
+                                data_final = List_Historic.data + relativedelta(months=+1)
+                                if data_final > date_type and primer_historic.data < date_type:
+                                    inscrito=True
+                                    tipus_insc=inscripcion.tipus
+                        if inscrito==True and tipus_insc!=2:
+                            if tipus_insc == 3:
+                                if time_type > datetime.strptime('17:00', '%H:%M').time():
+                                    pass
+                            else:
+                                if tipo == 3:
+                                    List_solFederacio=cliente_obj.solicitudfederacio_set.all()
+                                    if List_solFederacio:
+                                        for solFederacio in List_solFederacio:
+                                            if solFederacio.concedida and solFederacio.dataCaducitat > date.today():
+                                                cliente_obj.classes.add(clase_obj)
+                                else:
+                                    cliente_obj.classes.add(clase_obj)
+
+
+
+
+                   
+
+        print("Adding Faltas in database:")
+        for i in range(30):
+            print(i+1, end = '\r')
+            try:
+                data=fake.date_between_dates(date_start=datetime(2015,1,1), date_end=datetime.now())
+                personalF=Personal.objects.first()
+                Faltes.objects.create(dataFalta=data, personal=personalF)
+            except:
                 pass
 
-        # print("Adding Faltas in database:")
-        # for i in range(20):
-        #     print(i+1, end = '\r')
-        #     data=fake.date_between_dates(date_start=datetime(2015,1,1), date_end=datetime.now())
-        #     personalF=Personal.objects.first()
-        #     print(personalF)
-        #     Faltes.objects.create(dataFalta=data, personal=personalF)
