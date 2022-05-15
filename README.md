@@ -1,4 +1,4 @@
-# PROYECTO FINAL DE DABD
+# PROYECTO FINAL CON DJANGO DE DABD
 ## _PROGRAMA DE GESTIÓN DE UN CLUB DE LUCHA_
 
 [![N|Solid](https://www.upc.edu/comunicacio/ca/identitat/descarrega-arxius-grafics/fitxers-marca-principal/upc-positiu-p3005.png)](https://www.epsevg.upc.edu/ca/escola)
@@ -19,7 +19,7 @@ Proyecto final de la asignatura de DABD, EPSEVG-UPC.
 - Uso de [Faker] para generar datos falsos
 - Uso de terminal Windows Powershell
 - Creación del .md con [Dillinger](https://dillinger.io/)
-
+- Uso de [PostgreSQL](https://www.postgresql.org/) como BBDD 
 
 ## Despliegue y uso de Django
 
@@ -75,7 +75,21 @@ Podemos ejecutar un comando junto con manage.py para generar los datos falsos:
 ```sh
 python manage.py createdata
 ```
+
+El script que fakea datos se encuentra en [club/management/commands/createdata.py](https://github.com/ShadowFurtive/ProyectoDABD/blob/main/club/management/commands/createdata.py)
+
+Se crean aproximadamente 5500 datos. 
+
 [Video](https://www.youtube.com/watch?v=8LHdbaV7Dvo) en el que me he basado para hacer el comando.
+
+### Dentro de Postgres
+
+Dentro de Postgres crearemos un namespace para nuestra práctica:
+
+```sh
+CREATE SCHEMA practica;
+SET search_path TO practica, public;
+```
 
 ## ANEXO
 

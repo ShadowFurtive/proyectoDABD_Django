@@ -36,15 +36,6 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         fake = Faker('es_ES')
         
-        print("Adding Comptes in database: ")
-        for i in range(320):
-            print(i+1, end = '\r')
-        #     try:
-            d = fake.unique.iban()
-            Compte.objects.create(IBAN=d)
-        #     except:
-        #         pass
-
         print("Adding Personal in database:")
         for i in range(1):
             print(i+1, end = '\r')
@@ -56,7 +47,8 @@ class Command(BaseCommand):
             fecha_nacimiento = fake.date_between_dates(date_start=datetime(1970,1,1), date_end=datetime(2001,12,12))
             telefono=randint(100000000,999999999)
             direccion=fake.unique.address()
-            IBAN=random.choice(Compte.objects.all())
+            d = fake.unique.iban()
+            IBAN=Compte.objects.create(IBAN=d)
             Personal.objects.create(compteIBAN=IBAN, DNI=id, nom=nom, cognom=apellido, DataNaix=fecha_nacimiento, Telefon=telefono, direccio=direccion)
         # #     except:
         # #         pass
@@ -82,7 +74,8 @@ class Command(BaseCommand):
             telefono=randint(100000000,999999999)
             direccion=fake.unique.address()
             federacion=randint(10000000000000,99999999999999)
-            IBAN=random.choice(Compte.objects.all())
+            d = fake.unique.iban()
+            IBAN=Compte.objects.create(IBAN=d)
             Entrenador.objects.create(numFederacio=federacion ,compteIBAN=IBAN, DNI=id, nom=nom, cognom=apellido, DataNaix=fecha_nacimiento, Telefon=telefono, direccio=direccion)
         #     # except:
         #     #     pass
@@ -150,7 +143,13 @@ class Command(BaseCommand):
             domiciliat=bool(int(domiciliat[1]))
             IBAN=None
             if domiciliat==True:
-                IBAN=random.choice(Compte.objects.all())
+                pariente=str(choices([0,1], [0.9, 0.1]))
+                pariente=bool(int(pariente[1]))
+                if pariente:
+                    IBAN=random.choice(Compte.objects.all())
+                else:
+                    d = fake.unique.iban()
+                    IBAN=Compte.objects.create(IBAN=d)
             cliente_obj=Client.objects.create(PagementDomiciliat=domiciliat, compteIBAN=IBAN, DNI=id, nom=nom, cognom=apellido, DataNaix=fecha_nacimiento, Telefon=telefono, direccio=direccion)
             
 
