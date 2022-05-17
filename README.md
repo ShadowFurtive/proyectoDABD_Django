@@ -34,8 +34,8 @@ pip install virtualenv
 python -m venv django
 Set-ExecutionPolicy Unrestricted -Scope Process
 cd django
-Scripts/activate
-Scripts/Activate.ps1
+./Scripts/activate
+./Scripts/Activate.ps1
 Set-ExecutionPolicy Default -Scope Process
 ```
 
@@ -90,6 +90,54 @@ Dentro de Postgres crearemos un namespace para nuestra práctica:
 CREATE SCHEMA practica;
 SET search_path TO practica, public;
 ```
+
+### Generación de UML después de crear los modelos de Django
+
+Se puede generar el UML apartir de los modelos que hemos creado, para ello, tenemos que instalarnos dos librerias de python y un programa externo.
+
+Primero nos instalamos el [Graphviz](https://graphviz.org/download/). En mi caso, como estoy trabajando en Windows, usaré la última versión de 64 bits. 
+
+**Es importante que durante la instalación, le marquemos que queremos que se añada al PATH del sistema**
+
+Una vez instalado el Graphviz, nos vamos al Django.
+
+Activamos el entorno virtual:
+
+```sh
+Set-ExecutionPolicy Unrestricted -Scope Process
+./Scripts/activate
+Set-ExecutionPolicy Default -Scope Process
+```
+Y instalamos las librerias python necesarias:
+
+```sh
+pip install django-extensions
+pip install pydotplus
+```
+Y una vez instalado las librerias, debemos añadir la aplicación extra de *django_extensions* en el archivo *settings.py* que se encuentra dentro de la carpeta de la app. 
+
+```sh
+nano /dabd/settings.py
+...
+INSTALLED_APPS = [
+   ...
+   'django_extensions',
+   ...
+]
+```
+Ahora si ejecutamos la siguiente comanda, nos saca el UML apartir de nuestros modelos. 
+
+```sh
+python manage.py graph_models -a -o myapp_models.png
+```
+
+UML resultante:
+
+![N|Solid](https://lh3.googleusercontent.com/pw/AM-JKLUJ5DgEGvKELLXOQWAS3NPFldMPZX9LmSiV44RST7CIQfu_PPNVjsFZZpaedG8l5OXGOrajUgexaFMVith6ikvVBD7RPob0-4PXS4dBZLdYuZtGpjzoACaYl-UZmctj752v88siIC_AWttcRe7S96DO=w878-h635-no?authuser=0)
+
+Fuentes:
+[Link 1](https://simpleit.rocks/python/django/generate-uml-class-diagrams-from-django-models/)
+[Link 2](https://stackoverflow.com/questions/28312534/graphvizs-executables-are-not-found-python-3-4)
 
 ## ANEXO
 
