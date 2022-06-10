@@ -77,16 +77,20 @@ WSGI_APPLICATION = 'dabd.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'OPTIONS': {
-                    'options': '-c search_path=practica,public'
-                    },
-        'NAME': 'est_a2402638',
-        'USER': 'est_a2402638',
-        'PASSWORD': 'dB.a2402638',
-        'HOST': 'ubiwan.epsevg.upc.edu',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'mydatabase',
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'OPTIONS': {
+    #                 'options': '-c search_path=practica,public'
+    #                 },
+    #     'NAME': 'est_a2402638',
+    #     'USER': 'est_a2402638',
+    #     'PASSWORD': 'dB.a2402638',
+    #     'HOST': 'ubiwan.epsevg.upc.edu',
+    #     'PORT': '5432',
+    # }
 }
 
 

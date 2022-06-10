@@ -52,6 +52,7 @@ class Command(BaseCommand):
             Personal.objects.create(compteIBAN=IBAN, DNI=id, nom=nom, cognom=apellido, DataNaix=fecha_nacimiento, Telefon=telefono, direccio=direccion)
         # #     except:
         # #         pass
+        exit(1)
         lista_entrenadores={}
         print("Adding Entrenador in database:")
         for i in range(10):

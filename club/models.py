@@ -8,9 +8,6 @@ class PersonaTemplate(models.Model):
     DataNaix = models.DateField()
     Telefon = models.CharField(max_length=9)
     direccio = models.CharField(max_length=200)
-
-    class Meta: 
-        abstract = True
     
     def __str__(self):
         return '{} , {} , {} , {} , {} , {}'.format(self.DNI, self.nom, self.cognom, self.DataNaix, self.Telefon, self.direccio)
@@ -21,14 +18,16 @@ class Compte(models.Model):
         return 'IBAN: {} '.format(self.IBAN)
 
 class Personal(PersonaTemplate):
+    tmpl_persona = models.OneToOneField(PersonaTemplate, on_delete=models.CASCADE, parent_link=True, primary_key=True)
     compteIBAN = models.ForeignKey(Compte, on_delete=models.CASCADE)
     
     def __str__(self):
         return 'IBAN: {} , {}'.format(self.compteIBAN, super().__str__())
 
 class Entrenador(PersonaTemplate):
+    tmpl_persona = models.OneToOneField(PersonaTemplate, on_delete=models.CASCADE, parent_link=True, primary_key=True)
     numFederacio = models.BigIntegerField(validators=[MaxValueValidator(99999999999999)], unique=True)
-    compteIBAN = models.ForeignKey(Compte, on_delete=models.CASCADE, blank=True, null=True)
+    compteIBAN = models.ForeignKey(Compte, on_delete=models.CASCADE, blank=True)
 
     def __str__(self):
         return 'numFederacio: {} , IBAN: {} , {}'.format(str(self.numFederacio), self.compteIBAN, super().__str__())
@@ -66,6 +65,7 @@ class Classe(models.Model):
         return '{} , {}, {}'.format(self.modalitat, self.tipus, self.realitzada, self.coach.nom)
 
 class Client(PersonaTemplate):
+    tmpl_persona = models.OneToOneField(PersonaTemplate, on_delete=models.CASCADE, parent_link=True)
     PagementDomiciliat = models.BooleanField()
     compteIBAN = models.ForeignKey(Compte, on_delete=models.CASCADE, blank=True, null=True)
     classes = models.ManyToManyField(Classe, blank=True)
