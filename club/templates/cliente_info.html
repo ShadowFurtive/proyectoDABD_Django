@@ -1,0 +1,50 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h2>Información Clientes</h2>
+
+    <p>Información del cliente</p>
+         
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+            <th scope="col">CAMPO</th>
+            <th scope="col">VALOR</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="table-info">
+            <th scope="row">DNI</th>
+            <td>{{ cliente_info.DNI }}</td>
+            </tr>
+            <tr class="table-info">
+            <th scope="row">NOM</th>
+            <td>{{ cliente_info.nom }}</td>
+            </tr>
+            <tr class="table-info">
+            <th scope="row">COGNOM</th>
+            <td>{{ cliente_info.cognom }}</td>
+            </tr>
+            <tr class="table-info">
+            <th scope="row">DATA NAIXEMENT</th>
+            <td>{{ cliente_info.DataNaix }}</td>
+            </tr>
+            </tr>
+            <tr class="table-info">
+            <th scope="row">TELEFON</th>
+            <td>{{ cliente_info.Telefon }}</td>
+            </tr>
+            <tr class="table-info">
+            <th scope="row">DIRECCIO</th>
+            <td>{{ cliente_info.direccio }}</td>
+            </tr>
+            <tr class="table-info">
+            <th scope="row">IBAN</th>
+            <td>{{ cliente_info.compteIBAN|default_if_none:'' }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <button type="button" class="btn btn-warning"  onclick="location.href='{% url 'cliente_modificar' cliente_DNI=cliente_info.DNI %}';">Modificar</button>
+   
+{% endblock %}

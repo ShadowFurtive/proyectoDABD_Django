@@ -52,7 +52,6 @@ class Command(BaseCommand):
             Personal.objects.create(compteIBAN=IBAN, DNI=id, nom=nom, cognom=apellido, DataNaix=fecha_nacimiento, Telefon=telefono, direccio=direccion)
         # #     except:
         # #         pass
-        exit(1)
         lista_entrenadores={}
         print("Adding Entrenador in database:")
         for i in range(10):
@@ -118,7 +117,7 @@ class Command(BaseCommand):
                         return clase["modalidad"]
             return 4
         print("Adding Horarios in database:")
-        for i in range(1000):
+        for i in range(3000):
             print(i+1, end = '\r')
             date_clase= fake.date_between_dates(date_start=datetime(2012,5,1), date_end=datetime(2022,12,1))
             if date_clase.weekday() < 5:
@@ -130,7 +129,7 @@ class Command(BaseCommand):
 
 
         print("Adding Clientes in database:")
-        for i in range(300):
+        for i in range(400):
             print(i+1, end = '\r')
             # try:
             id = randint(10000000,99999999)
@@ -202,7 +201,7 @@ class Command(BaseCommand):
             
 
         print("Adding Clases in database:")
-        for i in range(1000):
+        for i in range(10000):
             print(i+1, end='\r')
             tipo=randint(1,2)
             date_clase=random.choice(Horari.objects.all())

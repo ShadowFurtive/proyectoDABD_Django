@@ -27,7 +27,7 @@ class Personal(PersonaTemplate):
 class Entrenador(PersonaTemplate):
     tmpl_persona = models.OneToOneField(PersonaTemplate, on_delete=models.CASCADE, parent_link=True, primary_key=True)
     numFederacio = models.BigIntegerField(validators=[MaxValueValidator(99999999999999)], unique=True)
-    compteIBAN = models.ForeignKey(Compte, on_delete=models.CASCADE, blank=True)
+    compteIBAN = models.ForeignKey(Compte, on_delete=models.CASCADE)
 
     def __str__(self):
         return 'numFederacio: {} , IBAN: {} , {}'.format(str(self.numFederacio), self.compteIBAN, super().__str__())
@@ -110,9 +110,10 @@ class SolicitudFederacio(models.Model):
         return '{} , {} , {} , {} , {} , {} , {}'.format(self.numero, self.pagament, self.concedida, self.data, self.numFederacio, self.dataCaducitat, self.client.nom)
 
 class Faltes(models.Model):
-    dataFalta = models.DateField(primary_key=True)
+    dataFalta = models.DateField()
     personal = models.ForeignKey(Personal, on_delete=models.CASCADE)
-
+    class Meta:
+        unique_together = (("dataFalta", "personal"))
     def __str__(self):
         return '{} , {}'.format(self.dataFalta, self.personal.nom)
 
