@@ -1,29 +1,12 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-<h2>Información Clientes</h2>
-
-    <p>Para obtener más información, haga un click en el botón de información</p>
-    <table class="table table-hover" id="myTable2">
-    <thead>
-        <tr>
-            <th  onclick="sortTable(0)">DNI</th>
-            <th scope="col" onclick="sortTable(1)">Nom</th>
-            <th scope="col" onclick="sortTable(2)">Cognom</th>
-            <th scope="col" onclick="sortTable(3)">Data Naixement</th>
-            <th scope="col">Més informació</th>
-        </tr>
-    </thead>
-    {% for field in clientes %}
-    <tbody>
-        <tr class="table-active">
-            <td>{{ field.DNI |default_if_none:'' }}</td>
-            <td>{{ field.nom |default_if_none:'' }}</td>
-            <td>{{ field.cognom |default_if_none:'' }}</td>
-            <td>{{ field.DataNaix |default_if_none:'' }}</td>
-            <td><button type="button" class="btn btn-info"  onclick="location.href='{% url 'cliente' cliente_DNI=field.DNI %}';">Informació</button></td>
-        </tr>
-    </tbody>
-    {% endfor %}
-    </table>
+<h2>Página d'inici</h2>
+<p>Registres totals del Club:</p>
+<ul>
+    <li><strong>Número de clients totals:</strong> {{ num_clients }}</li>
+    <li><strong>Número de solicituds de federació:</strong> {{ num_federacions }}</li>
+    <li><strong>Número de classes realitzades:</strong> {{ num_classes }}</li>
+    <li><strong>Número de pagaments fets:</strong> {{ num_pagaments }}</li>
+  </ul>
 {% endblock %}

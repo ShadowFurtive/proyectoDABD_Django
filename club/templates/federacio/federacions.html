@@ -1,0 +1,40 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h2>Panel de control de federacions</h2>
+
+    <div>
+        <form method="GET">
+            {{ myFilter.form }}
+            <button type="submit" class="btn btn-primary">Filtrar</button>
+        </form>
+    </div>
+    <div>
+        <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Numero</th>
+                <th scope="col">Pagament</th>
+                <th scope="col">Concedida</th>
+                <th scope="col">Data</th>
+                <th scope="col">Nº Federació</th>
+                <th scope="col">Data Caducitat</th>
+                <th scope="col">DNI Client</th>
+            </tr>
+        </thead>
+        {% for field in federacions %}
+        <tbody>
+            <tr class="table-active">
+                <td>{{ field.numero |default_if_none:'' }}</td>
+                <td>{{ field.pagament |default_if_none:'' }}</td>
+                <td>{{ field.concedida |default_if_none:'' }}</td>
+                <td>{{ field.data |default_if_none:'' }}</td>
+                <td>{{ field.numFederacio |default_if_none:'' }}</td>
+                <td>{{ field.dataCaducitat |default_if_none:'' }}</td>
+                <td>{{ field.client.DNI |default_if_none:'' }}</td>
+            </tr>
+        </tbody>
+        {% endfor %}
+        </table>
+    </div>
+{% endblock %}

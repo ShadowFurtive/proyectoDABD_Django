@@ -1,15 +1,12 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-<h2>Información Clientes</h2>
-
-    <p>Información del cliente</p>
-         
+<h2>Informació del client {{ cliente_info.DNI }}</h2>
 
     <table class="table table-hover">
         <thead>
             <tr>
-            <th scope="col">CAMPO</th>
+            <th scope="col">CAMP</th>
             <th scope="col">VALOR</th>
             </tr>
         </thead>
@@ -36,7 +33,7 @@
             <td>{{ cliente_info.Telefon }}</td>
             </tr>
             <tr class="table-info">
-            <th scope="row">DIRECCIO</th>
+            <th scope="row">DIRECCIÓ</th>
             <td>{{ cliente_info.direccio }}</td>
             </tr>
             <tr class="table-info">

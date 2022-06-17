@@ -1,0 +1,40 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h2>Modificar cliente</h2>
+<form action='.' method="POST">
+    {% csrf_token %}
+    <fieldset>
+        <div class="form-group">
+            <label for="dni_input" class="form-label mt-4">DNI:</label>
+            <input type="text" class="form-control" id="dni_input" name="dni_input" aria-describedby="dni" placeholder="{{ cliente_modificar.DNI }}">
+        </div>
+        <div class="form-group">
+            <label for="nom_input" class="form-label mt-4">NOM:</label>
+            <input type="text" class="form-control" id="nom_input" name="nom_input" aria-describedby="nom" placeholder="{{ cliente_modificar.nom }}">
+        </div>
+        <div class="form-group">
+            <label for="cognom_input" class="form-label mt-4">COGNOM:</label>
+            <input type="text" class="form-control" id="cognom_input" name="cognom_input" aria-describedby="cognom" placeholder="{{ cliente_modificar.cognom }}">
+        </div>
+        <div class="form-group">
+            <label for="datanaix_input" class="form-label mt-4">DATA NAIXAMENT:</label>
+            <input type="text" class="form-control" id="datanaix_input" name="datanaix_input" aria-describedby="data" placeholder="{{ cliente_modificar.DataNaix }}">
+        </div>
+        <div class="form-group">
+            <label for="telefon_input" class="form-label mt-4">TELEFON:</label>
+            <input type="number" class="form-control" id="telefon_input" name="telefon_input" aria-describedby="tel" placeholder="{{ cliente_modificar.Telefon }}">
+        </div>
+        <div class="form-group">
+            <label for="dir_input" class="form-label mt-4">DIRECCIO:</label>
+            <input type="text" class="form-control" id="dir_input" name="dir_input" aria-describedby="dir" placeholder="{{ cliente_modificar.direccio }}">
+        </div>
+        <div class="form-group">
+            <label for="iban_num" class="form-label mt-4">IBAN:</label>
+            <input type="text" class="form-control" id="iban_num" name="iban_num" aria-describedby="iban" placeholder="{{ cliente_modificar.compteIBAN }}">
+        </div>
+        <button type="submit" class="btn btn-primary">Confirmación</button>
+    </fieldset>
+</form>
+
+{% endblock %}

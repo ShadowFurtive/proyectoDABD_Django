@@ -1,0 +1,39 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h2>Panel de control de clients</h2>
+
+    <div>
+        <form method="GET">
+            {{ myFilter.form }}
+            <button type="submit" class="btn btn-primary">Filtrar</button>
+            <button type="button" class="btn btn-secondary" onclick="location.href='{% url 'cliente_create' %}';">Crear</button>
+        </form>
+    </div>
+    <div>
+        <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">DNI</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Cognom</th>
+                <th scope="col">Data Naixement</th>
+                <th scope="col">Més informació</th>
+                <th scope="col">Borrar</th>
+            </tr>
+        </thead>
+        {% for field in clientes %}
+        <tbody>
+            <tr class="table-active">
+                <td>{{ field.DNI |default_if_none:'' }}</td>
+                <td>{{ field.nom |default_if_none:'' }}</td>
+                <td>{{ field.cognom |default_if_none:'' }}</td>
+                <td>{{ field.DataNaix |default_if_none:'' }}</td>
+                <td><button type="button" class="btn btn-info"  onclick="location.href='{% url 'cliente_dni' cliente_DNI=field.DNI %}';">Informació</button></td>
+                <td><button type="button" class="btn btn-danger" onclick="location.href='{% url 'delete_cliente' cliente_DNI=field.DNI %}';">Borrar</button></td>
+            </tr>
+        </tbody>
+        {% endfor %}
+        </table>
+    </div>
+{% endblock %}

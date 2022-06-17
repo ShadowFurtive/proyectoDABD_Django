@@ -1,0 +1,88 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h2>Panel de control de classes</h2>
+
+    <div>
+        <form method="GET">
+            {{ myFilter.form }}
+            <button type="submit" class="btn btn-primary">Filtrar</button>
+        </form>
+    </div>
+    <div>
+        <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Dia</th>
+                <th scope="col">Hora</th>
+                <th scope="col">Entrenador</th>
+                <th scope="col">Tipus</th>
+                <th scope="col">Modalitat</th>
+                <th scope="col">Participants</th>
+            </tr>
+        </thead>
+        {% for field in classes %}
+        <tbody>
+            <tr class="table-active">
+                <td>{{ field.horari.data |default_if_none:'' }}</td>
+                <td>{{ field.horari.horario |default_if_none:'' }}</td>
+                <td>{{ field.coach.nom |default_if_none:'' }}</td>
+                <td>{{ field.tipus |default_if_none:'' }}</td>
+                <td>{{ field.modalitat |default_if_none:'' }}</td>
+                <td><button type="button" class="btn btn-danger">Participants</button></td>
+            </tr>
+        </tbody>
+        {% endfor %}
+        </table>
+    </div>
+    <div>
+        <ul class="pagination pagination-lg">
+          <li class="page-item disabled">
+            <a class="page-link" href="#">&laquo;</a>
+          </li>
+          <li class="page-item active">
+            <a class="page-link" href="#">1</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="#">2</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="#">3</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="#">4</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="#">5</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="#">&raquo;</a>
+          </li>
+        </ul>
+      </div>
+    <div>
+
+        {% if users.has_other_pages %}
+        <ul class="pagination pagination-lg">
+          {% if users.has_previous %}
+            <li class="page-item enabled"><a class="page-link" href="?page={{ users.previous_page_number }}">&laquo;</a></li>
+          {% else %}
+            <li class="page-item disabled"><span>&laquo;</span></li>
+          {% endif %}
+          {% for i in users.paginator.page_range %}
+            {% if users.number == i %}
+              <li class="page-item enabled"><span>{{ i }} <span>(current)</span></span></li>
+            {% else %}
+              <li><a href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+          {% endfor %}
+          {% if users.has_next %}
+            <li class="page-item enabled"><a class="page-link" href="?page={{ users.next_page_number }}">&raquo;</a></li>
+          {% else %}
+            <li class="page-item disabled"><span>&raquo;</span></li>
+          {% endif %}
+        </ul>
+      {% endif %}
+    </div>
+      
+{% endblock %}
