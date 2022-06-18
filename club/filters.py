@@ -9,6 +9,13 @@ class ClientFilter(django_filters.FilterSet):
         model = Client
         fields = ['DNI', 'nom']
 
+class EntrenadorFilter(django_filters.FilterSet):
+    
+    class Meta:
+        model = Client
+        fields = ['DNI', 'nom']
+
+
 
 class FederacioFilter(django_filters.FilterSet):
     class Meta:

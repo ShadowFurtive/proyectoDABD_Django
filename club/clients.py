@@ -1,8 +1,9 @@
 from django.shortcuts import render
 # Create your views here.
-from .models import Client, Compte
+from .models import Client, Compte, Classe
 from .filters import ClientFilter
 from django.core.exceptions import BadRequest
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 #### CLIENTE ####
 
 def cliente_general(request):
@@ -10,14 +11,26 @@ def cliente_general(request):
     Función vista para la página inicio del sitio.
     """
     # Genera contadores de algunos de los objetos principales
-    clientes=Client.objects.all()
+    clientes= Client.objects.all()
     myFilter = ClientFilter(request.GET, queryset=clientes)
     clientes = myFilter.qs
+    page = request.GET.get('page', 1)
+    
+    paginator = Paginator(clientes, 50)
+    page_range = paginator.get_elided_page_range(number=page)
+    print(paginator.num_pages)
+    try:
+        clientes = paginator.page(page)
+    except PageNotAnInteger:
+        clientes = paginator.page(1)
+    except EmptyPage:
+        clientes = paginator.page(paginator.num_pages)
+
     # Renderiza la plantilla HTML index.html con los datos en la variable contexto
     return render(
         request,
         'clients/cliente.html',
-        context={'clientes': clientes, 'myFilter': myFilter},
+        context={'clientes': clientes, 'myFilter': myFilter, 'page_range': page_range},
     )
 
 def cliente(request, cliente_DNI):
@@ -127,14 +140,13 @@ def cliente_create(request):
     )
 
 def delete_cliente(request, cliente_DNI):
-    print("hola")
     cliente_existe = Client.objects.filter(DNI=cliente_DNI).exists()
     if cliente_existe:
         Client.objects.filter(DNI=cliente_DNI).delete()
-        status="Ha sido eliminado el cliente con DNI "+ str(cliente_DNI)
+        status="Ha sigut posible eliminar el client amb DNI "+ str(cliente_DNI)
         context={'status': status}
     else:
-        status="No ha sido posible eliminar el cliente con DNI "+ str(cliente_DNI) + " ya que no exista"
+        status="No ha sigut posible eliminar el client amb DNI "+ str(cliente_DNI) + "ja que no existeix"
         context={'status': status}
     return render( 
         request,
@@ -142,3 +154,11 @@ def delete_cliente(request, cliente_DNI):
         context=context
     )
     
+def cliente_classes(request, cliente_DNI):
+    cliente = Client.objects.get(DNI=cliente_DNI)
+    classes = Classe.objects.filter(client=cliente)
+    return render(
+        request,
+        'clients/clientes_classes.html',
+        context={'classes': classes, 'cliente': cliente}
+    )

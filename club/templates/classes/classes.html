@@ -27,57 +27,51 @@
                 <td>{{ field.horari.data |default_if_none:'' }}</td>
                 <td>{{ field.horari.horario |default_if_none:'' }}</td>
                 <td>{{ field.coach.nom |default_if_none:'' }}</td>
-                <td>{{ field.tipus |default_if_none:'' }}</td>
-                <td>{{ field.modalitat |default_if_none:'' }}</td>
-                <td><button type="button" class="btn btn-danger">Participants</button></td>
+                {% if field.tipus == 1 %}
+                    <td>Físic</td>
+                {% elif field.tipus == 2 %}
+                    <td>Técnic</td>
+                {% else %}
+                    <td>Contacte</td>
+                {% endif %}
+                {% if field.modalitat == 1 %}
+                    <td>Boxa</td>
+                {% elif field.modalitat == 2 %}
+                    <td>Thai</td>
+                {% else %}
+                    <td>MMA</td>
+                {% endif %}
+                {% if field.realitzada %}
+                 <td><button type="button" class="btn btn-danger" onclick="location.href='{% url 'classe_participants' data_par=field.horari.data hora=field.horari.horario entrenador=field.coach.DNI %}';">Participants</button></td>
+                {% else %}
+                    <td><button type="button" class="btn btn-light" >Participants</button></td>
+                {% endif %}
             </tr>
         </tbody>
         {% endfor %}
         </table>
     </div>
     <div>
+        {% if classes.has_other_pages %}
         <ul class="pagination pagination-lg">
-          <li class="page-item disabled">
-            <a class="page-link" href="#">&laquo;</a>
-          </li>
-          <li class="page-item active">
-            <a class="page-link" href="#">1</a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="#">2</a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="#">3</a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="#">4</a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="#">5</a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="#">&raquo;</a>
-          </li>
-        </ul>
-      </div>
-    <div>
-
-        {% if users.has_other_pages %}
-        <ul class="pagination pagination-lg">
-          {% if users.has_previous %}
-            <li class="page-item enabled"><a class="page-link" href="?page={{ users.previous_page_number }}">&laquo;</a></li>
+          {% if classes.has_previous %}
+            <li class="page-item enabled"><a class="page-link" href="?page={{ classes.previous_page_number }}">&laquo;</a></li>
           {% else %}
             <li class="page-item disabled"><span>&laquo;</span></li>
           {% endif %}
-          {% for i in users.paginator.page_range %}
-            {% if users.number == i %}
-              <li class="page-item enabled"><span>{{ i }} <span>(current)</span></span></li>
+          {% for i in page_range|default_if_none:classes.paginator.get_elided_page_range  %}
+            {% if classes.number == i %}
+              <li class="page-item active"><a class="page-link"><span>{{ i }}</span></a></li>
             {% else %}
-              <li><a href="?page={{ i }}">{{ i }}</a></li>
+              {% if i == classes.paginator.ELLIPSIS %}
+                <li class="page-item active"><a class="page-link"><span>{{ i }}</span></a></li>
+              {% else %}
+                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+              {% endif %}
             {% endif %}
           {% endfor %}
-          {% if users.has_next %}
-            <li class="page-item enabled"><a class="page-link" href="?page={{ users.next_page_number }}">&raquo;</a></li>
+          {% if classes.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ classes.next_page_number }}">&raquo;</a></li>
           {% else %}
             <li class="page-item disabled"><span>&raquo;</span></li>
           {% endif %}

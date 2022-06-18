@@ -1,0 +1,41 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <H1> Classes asistides per {{ cliente.DNI }}</H1>
+    <div>
+        <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Dia</th>
+                <th scope="col">Hora</th>
+                <th scope="col">Entrenador</th>
+                <th scope="col">Tipus</th>
+                <th scope="col">Modalitat</th>
+            </tr>
+        </thead>
+        {% for field in classes %}
+        <tbody>
+            <tr class="table-active">
+                <td>{{ field.horari.data |default_if_none:'' }}</td>
+                <td>{{ field.horari.horario |default_if_none:'' }}</td>
+                <td>{{ field.coach.nom |default_if_none:'' }}</td>
+                {% if field.tipus == 1 %}
+                    <td>Físic</td>
+                {% elif field.tipus == 2 %}
+                    <td>Técnic</td>
+                {% else %}
+                    <td>Contacte</td>
+                {% endif %}
+                {% if field.modalitat == 1 %}
+                    <td>Boxa</td>
+                {% elif field.modalitat == 2 %}
+                    <td>Thai</td>
+                {% else %}
+                    <td>MMA</td>
+                {% endif %}
+            </tr>
+        </tbody>
+        {% endfor %}
+        </table>
+    </div>
+{% endblock %}

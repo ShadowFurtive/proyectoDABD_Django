@@ -10,7 +10,7 @@
         </form>
     </div>
     <div>
-        <table class="table table-hover">
+        <table class="table table-hover" >
         <thead>
             <tr>
                 <th scope="col">Numero</th>
@@ -20,6 +20,8 @@
                 <th scope="col">Nº Federació</th>
                 <th scope="col">Data Caducitat</th>
                 <th scope="col">DNI Client</th>
+                <th scope="col">Activar</th>
+                <th scope="col">Borrar</th>
             </tr>
         </thead>
         {% for field in federacions %}
@@ -32,9 +34,42 @@
                 <td>{{ field.numFederacio |default_if_none:'' }}</td>
                 <td>{{ field.dataCaducitat |default_if_none:'' }}</td>
                 <td>{{ field.client.DNI |default_if_none:'' }}</td>
+                {% if not field.concedida %}
+                    <td method="POST"><button type="button" class="btn btn-success"  onclick="location.href='{% url 'activate_federacio' federacio_num=field.numero %}';">Activar</button></td>
+                {% else %}
+                    <td><button type="button" class="btn btn-light" >Activar</button></td>
+                {% endif %}
+                <td><button type="button" class="btn btn-danger" onclick="location.href='{% url 'delete_federacio' federacio_num=field.numero %}';">Borrar</button></td>
             </tr>
         </tbody>
         {% endfor %}
         </table>
+    </div>
+    <div>
+        {% if federacions.has_other_pages %}
+        <ul class="pagination pagination-lg">
+          {% if federacions.has_previous %}
+            <li class="page-item enabled"><a class="page-link" href="?page={{ federacions.previous_page_number }}">&laquo;</a></li>
+          {% else %}
+            <li class="page-item disabled"><span>&laquo;</span></li>
+          {% endif %}
+          {% for i in page_range|default_if_none:federacions.paginator.get_elided_page_range  %}
+            {% if federacions.number == i %}
+              <li class="page-item active"><a class="page-link"><span>{{ i }}</span></a></li>
+            {% else %}
+              {% if i == federacions.paginator.ELLIPSIS %}
+                <li class="page-item active"><a class="page-link"><span>{{ i }}</span></a></li>
+              {% else %}
+                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+          {% if federacions.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ federacions.next_page_number }}">&raquo;</a></li>
+          {% else %}
+            <li class="page-item disabled"><span>&raquo;</span></li>
+          {% endif %}
+        </ul>
+      {% endif %}
     </div>
 {% endblock %}

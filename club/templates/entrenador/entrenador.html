@@ -18,49 +18,49 @@
                 <th scope="col">Nom</th>
                 <th scope="col">Cognom</th>
                 <th scope="col">Data Naixement</th>
+                <th scope="col">Nº Federació</th>
                 <th scope="col">Més informació</th>
-                <th scope="col">Borrar</th>
             </tr>
         </thead>
-        {% for field in clientes %}
+        {% for field in entrenadores %}
         <tbody>
             <tr class="table-active">
                 <td>{{ field.DNI |default_if_none:'' }}</td>
                 <td>{{ field.nom |default_if_none:'' }}</td>
                 <td>{{ field.cognom |default_if_none:'' }}</td>
                 <td>{{ field.DataNaix |default_if_none:'' }}</td>
-                <td><button type="button" class="btn btn-info"  onclick="location.href='{% url 'cliente_dni' cliente_DNI=field.DNI %}';">Informació</button></td>
-                <td><button type="button" class="btn btn-danger" onclick="location.href='{% url 'delete_cliente' cliente_DNI=field.DNI %}';">Borrar</button></td>
+                <td>{{ field.numFederacio |default_if_none:'' }}</td>
+                <td><button type="button" class="btn btn-info"  onclick="location.href='{% url 'entrenador_info' entrenador=field.DNI %}';">Informació</button></td>
             </tr>
         </tbody>
         {% endfor %}
         </table>
     </div>
     <div>
-        {% if clientes.has_other_pages %}
+        {% if entrenadores.has_other_pages %}
         <ul class="pagination pagination-lg">
-          {% if clientes.has_previous %}
-            <li class="page-item enabled"><a class="page-link" href="?page={{ clientes.previous_page_number }}">&laquo;</a></li>
-          {% else %}
+        {% if entrenadores.has_previous %}
+            <li class="page-item enabled"><a class="page-link" href="?page={{ entrenadores.previous_page_number }}">&laquo;</a></li>
+        {% else %}
             <li class="page-item disabled"><span>&laquo;</span></li>
-          {% endif %}
-          {% for i in page_range|default_if_none:clientes.paginator.get_elided_page_range  %}
-            {% if clientes.number == i %}
-              <li class="page-item active"><a class="page-link"><span>{{ i }}</span></a></li>
+        {% endif %}
+        {% for i in page_range|default_if_none:entrenadores.paginator.get_elided_page_range  %}
+            {% if entrenadores.number == i %}
+            <li class="page-item active"><a class="page-link"><span>{{ i }}</span></a></li>
             {% else %}
-              {% if i == clientes.paginator.ELLIPSIS %}
+            {% if i == entrenadores.paginator.ELLIPSIS %}
                 <li class="page-item active"><a class="page-link"><span>{{ i }}</span></a></li>
-              {% else %}
+            {% else %}
                 <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
-              {% endif %}
             {% endif %}
-          {% endfor %}
-          {% if clientes.has_next %}
-            <li class="page-item"><a class="page-link" href="?page={{ clientes.next_page_number }}">&raquo;</a></li>
-          {% else %}
+            {% endif %}
+        {% endfor %}
+        {% if entrenadores.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ entrenadores.next_page_number }}">&raquo;</a></li>
+        {% else %}
             <li class="page-item disabled"><span>&raquo;</span></li>
-          {% endif %}
+        {% endif %}
         </ul>
-      {% endif %}
+    {% endif %}
     </div>
 {% endblock %}
