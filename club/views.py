@@ -1,8 +1,7 @@
 from django.shortcuts import render
 # Create your views here.
 from django.http import HttpResponse
-from .models import Classe, Client, Entrenador, Personal, Compte, SolicitudFederacio, HistoricPagaments
-from .filters import ClientFilter
+from .models import Classe, Client, SolicitudFederacio, HistoricPagaments
 from django.http import HttpResponse
 from django.core.exceptions import BadRequest
 

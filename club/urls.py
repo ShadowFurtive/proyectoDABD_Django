@@ -1,10 +1,13 @@
 from django.urls import path, include, re_path
 
-from . import views, clients, federacio, classe, entrenador
+from . import views, clients, federacio, classe, entrenador, personal
 
 urlpatterns = [
     path('', views.index, name='index'),
-    
+    # URL PERSONAL      
+    path(r'personal', personal.personal_general, name="personal"),
+    path(r'personal/<slug:personal>/', personal.personal_info, name='personal_info'),
+    path(r'personal/faltes/<slug:personal>/', personal.personal_faltes, name='personal_faltes'),
     # URL ENTRENADORES
     path(r'entrenador', entrenador.entrenador_general, name="entrenador"),
     path(r'entrenador/<slug:entrenador>/', entrenador.entrenador_info, name='entrenador_info'),

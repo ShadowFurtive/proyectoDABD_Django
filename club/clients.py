@@ -1,7 +1,7 @@
 from django.shortcuts import render
 # Create your views here.
 from .models import Client, Compte, Classe
-from .filters import ClientFilter
+from .filters import PersonaFilter
 from django.core.exceptions import BadRequest
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 #### CLIENTE ####
@@ -12,7 +12,7 @@ def cliente_general(request):
     """
     # Genera contadores de algunos de los objetos principales
     clientes= Client.objects.all()
-    myFilter = ClientFilter(request.GET, queryset=clientes)
+    myFilter = PersonaFilter(request.GET, queryset=clientes)
     clientes = myFilter.qs
     page = request.GET.get('page', 1)
     

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 # Create your views here.
 from .models import Entrenador
-from .filters import EntrenadorFilter
+from .filters import PersonaFilter
 from django.core.exceptions import BadRequest
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -12,7 +12,7 @@ def entrenador_general(request):
     """
     # Genera contadores de algunos de los objetos principales
     entrenadores= Entrenador.objects.all()
-    myFilter = EntrenadorFilter(request.GET, queryset=entrenadores)
+    myFilter = PersonaFilter(request.GET, queryset=entrenadores)
     entrenadores = myFilter.qs
     page = request.GET.get('page', 1)
     

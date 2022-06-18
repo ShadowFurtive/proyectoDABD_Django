@@ -1,0 +1,46 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h2>Informació del personal {{ personal_info.DNI }}</h2>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+            <th scope="col">CAMP</th>
+            <th scope="col">VALOR</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="table-info">
+            <th scope="row">DNI</th>
+            <td>{{ personal_info.DNI }}</td>
+            </tr>
+            <tr class="table-info">
+            <th scope="row">NOM</th>
+            <td>{{ personal_info.nom }}</td>
+            </tr>
+            <tr class="table-info">
+            <th scope="row">COGNOM</th>
+            <td>{{ personal_info.cognom }}</td>
+            </tr>
+            <tr class="table-info">
+            <th scope="row">DATA NAIXEMENT</th>
+            <td>{{ personal_info.DataNaix }}</td>
+            </tr>
+            </tr>
+            <tr class="table-info">
+            <th scope="row">TELEFON</th>
+            <td>{{ personal_info.Telefon }}</td>
+            </tr>
+            <tr class="table-info">
+            <th scope="row">DIRECCIÓ</th>
+            <td>{{ personal_info.direccio }}</td>
+            <tr class="table-info">
+            <th scope="row">IBAN</th>
+            <td>{{ personal_info.compteIBAN|default_if_none:'' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+       
+{% endblock %}

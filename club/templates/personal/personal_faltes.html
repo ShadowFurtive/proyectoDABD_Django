@@ -1,0 +1,23 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h2>Faltes de {{ personal.DNI }}</h2>
+<div>
+    <table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">DIA</th>
+        </tr>
+    </thead>
+    {% for field in faltes %}
+    <tbody>
+        <tr class="table-active">
+            <td>{{ field.dataFalta |default_if_none:'' }}</td>
+        </tr>
+    </tbody>
+    {% endfor %}
+    </table>
+</div>
+
+       
+{% endblock %}

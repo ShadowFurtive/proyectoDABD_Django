@@ -1,0 +1,68 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h2>Panel de control de personals</h2>
+
+    <div>
+        <form method="GET">
+            {{ myFilter.form }}
+            <button type="submit" class="btn btn-primary">Filtrar</button>
+            <button type="button" class="btn btn-secondary" onclick="location.href='{% url 'cliente_create' %}';">Crear</button>
+        </form>
+    </div>
+    <div>
+        <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">DNI</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Cognom</th>
+                <th scope="col">Data naixement</th>
+                <th scope="col">IBAN</th>
+                <th scope="col">Més informació</th>
+                <th scope="col">Faltes</th>
+            </tr>
+        </thead>
+        {% for field in personal %}
+        <tbody>
+            <tr class="table-active">
+                <td>{{ field.DNI |default_if_none:'' }}</td>
+                <td>{{ field.nom |default_if_none:'' }}</td>
+                <td>{{ field.cognom |default_if_none:'' }}</td>
+                <td>{{ field.DataNaix |default_if_none:'' }}</td>
+                <td>{{ field.compteIBAN |default_if_none:'' }}</td>
+                <td><button type="button" class="btn btn-info"  onclick="location.href='{% url 'personal_info' personal=field.DNI %}';">Informació</button></td>
+                <td><button type="button" class="btn btn-danger"  onclick="location.href='{% url 'personal_faltes' personal=field.DNI %}';">Faltes</button></td>
+            </tr>
+        </tbody>
+        {% endfor %}
+        </table>
+    </div>
+    <div>
+        {% if personal.has_other_pages %}
+        <ul class="pagination pagination-lg">
+        {% if personal.has_previous %}
+            <li class="page-item enabled"><a class="page-link" href="?page={{ personal.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+            <li class="page-item disabled"><span>&laquo;</span></li>
+        {% endif %}
+        {% for i in page_range|default_if_none:personal.paginator.get_elided_page_range  %}
+            {% if personal.number == i %}
+            <li class="page-item active"><a class="page-link"><span>{{ i }}</span></a></li>
+            {% else %}
+            {% if i == personal.paginator.ELLIPSIS %}
+                <li class="page-item active"><a class="page-link"><span>{{ i }}</span></a></li>
+            {% else %}
+                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+            {% endif %}
+        {% endfor %}
+        {% if personal.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ personal.next_page_number }}">&raquo;</a></li>
+        {% else %}
+            <li class="page-item disabled"><span>&raquo;</span></li>
+        {% endif %}
+        </ul>
+    {% endif %}
+    </div>
+{% endblock %}
