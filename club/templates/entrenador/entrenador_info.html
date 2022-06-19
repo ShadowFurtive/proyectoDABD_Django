@@ -46,6 +46,8 @@
             </tr>
         </tbody>
     </table>
-
+    <p>Classes realitzades: {{ classes_fetes }}</p>
+    <p>Classes no realitzades: {{ classes_no_fetes }}</p>
+    <button type="button" class="btn btn-secondary" onclick="location.href='{% url 'entrenador_classes' entrenador=entrenador_info.DNI   %}';">Classes</button>
        
 {% endblock %}

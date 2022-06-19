@@ -12,7 +12,7 @@ def classe_general(request):
     Función vista para la página inicio del sitio.
     """
     # Genera contadores de algunos de los objetos principales
-    classes= Classe.objects.all().order_by('-horari')
+    classes= Classe.objects.all().order_by('horari__data')
     page = request.GET.get('page', 1)
     
     paginator = Paginator(classes, 50)

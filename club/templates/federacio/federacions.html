@@ -7,6 +7,7 @@
         <form method="GET">
             {{ myFilter.form }}
             <button type="submit" class="btn btn-primary">Filtrar</button>
+            <button type="button" class="btn btn-secondary"  onclick="location.href='{% url 'create_federacio' %}';">Crear</button>
         </form>
     </div>
     <div>
@@ -15,7 +16,7 @@
             <tr>
                 <th scope="col">Numero</th>
                 <th scope="col">Pagament</th>
-                <th scope="col">Concedida</th>
+                <th scope="col">Concebuda</th>
                 <th scope="col">Data</th>
                 <th scope="col">Nº Federació</th>
                 <th scope="col">Data Caducitat</th>

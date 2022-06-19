@@ -1,0 +1,27 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h2>Crear una federació nou</h2>
+<p>Les opcions marcades amb * son obligatories.
+   Les altres dades de la sol·licitud es generen automàticament.
+</p>
+<form action="." method="POST">
+    {% csrf_token %}
+    <fieldset>
+        <div class="form-group">
+            <label for="dni" class="form-label mt-4">DNI: *</label>
+            <input type="text" class="form-control" id="dni" name="dni" aria-describedby="cognom">
+        </div>
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="pagament" name="pagament">
+            <label class="form-check-label" for="pagament">Pagament: *</label>
+        </div>
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="concebuda" name="concebuda">
+            <label class="form-check-label" for="concebuda">Concebuda: *</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Confirmación</button>
+    </fieldset>
+</form>
+
+{% endblock %}

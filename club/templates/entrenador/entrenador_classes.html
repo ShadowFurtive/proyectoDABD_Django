@@ -1,0 +1,73 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <H1> Classes fetes per el {{ entrenador.DNI }}</H1>
+    <button type="button" class="btn btn-info" onclick="location.href='{% url 'entrenador_usemana' entrenador=entrenador.DNI   %}';">Últims 7 dies</button>
+    <div>
+        <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Dia</th>
+                <th scope="col">Hora</th>
+                <th scope="col">Realitzada</th>
+                <th scope="col">Tipus</th>
+                <th scope="col">Modalitat</th>
+            </tr>
+        </thead>
+        {% for field in classes %}
+        <tbody>
+            <tr class="table-active">
+                <td>{{ field.horari.data |default_if_none:'' }}</td>
+                <td>{{ field.horari.horario |default_if_none:'' }}</td>
+                {% if field.realitzada %}
+                    <td>Feta</td>
+                {% else %}
+                    <td>No feta</td>
+                {% endif %}
+                {% if field.tipus == 1 %}
+                    <td>Físic</td>
+                {% elif field.tipus == 2 %}
+                    <td>Técnic</td>
+                {% else %}
+                    <td>Contacte</td>
+                {% endif %}
+                {% if field.modalitat == 1 %}
+                    <td>Boxa</td>
+                {% elif field.modalitat == 2 %}
+                    <td>Thai</td>
+                {% else %}
+                    <td>MMA</td>
+                {% endif %}
+            </tr>
+        </tbody>
+        {% endfor %}
+        </table>
+    </div>
+    <div>
+        {% if clientes.has_other_pages %}
+        <ul class="pagination pagination-lg">
+          {% if clientes.has_previous %}
+            <li class="page-item enabled"><a class="page-link" href="?page={{ clientes.previous_page_number }}">&laquo;</a></li>
+          {% else %}
+            <li class="page-item disabled"><span>&laquo;</span></li>
+          {% endif %}
+          {% for i in page_range|default_if_none:clientes.paginator.get_elided_page_range  %}
+            {% if clientes.number == i %}
+              <li class="page-item active"><a class="page-link"><span>{{ i }}</span></a></li>
+            {% else %}
+              {% if i == clientes.paginator.ELLIPSIS %}
+                <li class="page-item active"><a class="page-link"><span>{{ i }}</span></a></li>
+              {% else %}
+                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+          {% if clientes.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ clientes.next_page_number }}">&raquo;</a></li>
+          {% else %}
+            <li class="page-item disabled"><span>&raquo;</span></li>
+          {% endif %}
+        </ul>
+      {% endif %}
+    </div>
+{% endblock %}

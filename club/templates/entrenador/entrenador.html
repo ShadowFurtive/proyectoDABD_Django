@@ -1,13 +1,12 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-<h2>Panel de control de clients</h2>
+<h2>Panel de control de entrenador</h2>
 
     <div>
         <form method="GET">
             {{ myFilter.form }}
             <button type="submit" class="btn btn-primary">Filtrar</button>
-            <button type="button" class="btn btn-secondary" onclick="location.href='{% url 'cliente_create' %}';">Crear</button>
         </form>
     </div>
     <div>

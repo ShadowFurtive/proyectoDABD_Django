@@ -11,12 +11,15 @@ urlpatterns = [
     # URL ENTRENADORES
     path(r'entrenador', entrenador.entrenador_general, name="entrenador"),
     path(r'entrenador/<slug:entrenador>/', entrenador.entrenador_info, name='entrenador_info'),
-
-    # URL FEDERACIONS
+    path(r'entrenador/classes/<slug:entrenador>/', entrenador.entrenador_classes, name='entrenador_classes'),
+    path(r'entrenador/usemana/<slug:entrenador>/', entrenador.entrenador_usemana, name='entrenador_usemana'),
+    
+    # URL classe
     path(r'classe_participants/(?P<data_par>\d{4}-\d{2}-\d{2})/$)/(?P<hora>\d{2}:\d{2}:\d{2})/<slug:entrenador>', classe.classe_participants, name='classe_participants'),
     path(r'classe', classe.classe_general, name="classes"),
     
     # URL FEDERACIONS
+    path(r'create_federacio/create/', federacio.federacio_create, name='create_federacio'),
     path(r'activate_federacio/<slug:federacio_num>/', federacio.activate_federacio, name='activate_federacio'),
     path(r'delete_federacio/<slug:federacio_num>/', federacio.delete_federacio, name='delete_federacio'),
     path(r'federacio', federacio.federacions_general, name="federacions"),
