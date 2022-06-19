@@ -43,7 +43,7 @@ def personal_info(request, personal):
 
 def personal_faltes(request, personal):
     persona = Personal.objects.get(DNI=personal)
-    faltes = Faltes.objects.filter(personal=persona)
+    faltes = Faltes.objects.filter(personal=persona).order_by('-dataFalta')
     return render(
         request,
         'personal/personal_faltes.html',

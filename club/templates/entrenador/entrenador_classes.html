@@ -44,26 +44,26 @@
         </table>
     </div>
     <div>
-        {% if clientes.has_other_pages %}
+        {% if classes.has_other_pages %}
         <ul class="pagination pagination-lg">
-          {% if clientes.has_previous %}
-            <li class="page-item enabled"><a class="page-link" href="?page={{ clientes.previous_page_number }}">&laquo;</a></li>
+          {% if classes.has_previous %}
+            <li class="page-item enabled"><a class="page-link" href="?page={{ classes.previous_page_number }}">&laquo;</a></li>
           {% else %}
             <li class="page-item disabled"><span>&laquo;</span></li>
           {% endif %}
-          {% for i in page_range|default_if_none:clientes.paginator.get_elided_page_range  %}
-            {% if clientes.number == i %}
+          {% for i in page_range|default_if_none:classes.paginator.get_elided_page_range  %}
+            {% if classes.number == i %}
               <li class="page-item active"><a class="page-link"><span>{{ i }}</span></a></li>
             {% else %}
-              {% if i == clientes.paginator.ELLIPSIS %}
+              {% if i == classes.paginator.ELLIPSIS %}
                 <li class="page-item active"><a class="page-link"><span>{{ i }}</span></a></li>
               {% else %}
                 <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
               {% endif %}
             {% endif %}
           {% endfor %}
-          {% if clientes.has_next %}
-            <li class="page-item"><a class="page-link" href="?page={{ clientes.next_page_number }}">&raquo;</a></li>
+          {% if classes.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ classes.next_page_number }}">&raquo;</a></li>
           {% else %}
             <li class="page-item disabled"><span>&raquo;</span></li>
           {% endif %}

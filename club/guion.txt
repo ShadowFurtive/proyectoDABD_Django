@@ -1,0 +1,47 @@
+################
+VIDEO EMPIEZA CON UML
+- Enseñamos lo que hemos modelado
+
+###############
+Tecnologias
+- Usado ORM Django para desarrolar mapeo de objetos
+- Usado FrameWork Django para crear el frontend
+- Plantillas del bootstrap para el CSS
+- Uso de HTML para crear las páginas
+- Uso de postgres SQL, ubicado en el servidor Ubiwan de la universidad
+- Código opensource en el github 
+https://github.com/ShadowFurtive/ProyectoDABD
+
+################
+- Enseñar plantilla de inicio de la páginas
+- Enseñar clientes:
+    - Enseñar filtro por DNI: 14183574O
+    - Enseñar páginacion (para adelante, para atrás)
+    - Enseñamos crear un usuario nuevo
+    - Borramos cliente
+    - Entramos en panel de información del usuario
+    - Modificamos el nombre
+    - Luego enseñamos las clases a las que ha participado
+- Entrenadores:
+    - Enseñamos panel de Entrenadores
+    - Enseñamos que se puede ver información
+    - Enseñamos que se puede ver las clases hechas y las clases de los últimos 7 dias
+- Personal
+    - Enseñamos panel de información
+    - Enseñamos panel de faltas
+- Enseñamos clases:
+    - Enseñamos que se puede ver los participantes y que están ordenadas
+- Enseñamos federaciones
+    - Enseñamos que se puede filtrar por el numero
+    - Enseñamos que se puede crear 
+    - Enseñamos que se puede borrar
+    - Enseñamos que se puede activar
+
+##################
+
+Código interesante
+    - Federaciones:
+
+
+#################
+FIN :)
