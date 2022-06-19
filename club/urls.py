@@ -19,8 +19,8 @@ urlpatterns = [
     path(r'classe', classe.classe_general, name="classes"),
     
     # URL FEDERACIONS
-    path(r'create_federacio/create/', federacio.federacio_create, name='create_federacio'),
     path(r'activate_federacio/<slug:federacio_num>/', federacio.activate_federacio, name='activate_federacio'),
+    path(r'create_federacio/create/', federacio.federacio_create, name='create_federacio'),
     path(r'delete_federacio/<slug:federacio_num>/', federacio.delete_federacio, name='delete_federacio'),
     path(r'federacio', federacio.federacions_general, name="federacions"),
     # URL CLIENTS

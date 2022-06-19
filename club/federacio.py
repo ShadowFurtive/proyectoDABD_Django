@@ -39,28 +39,27 @@ def federacions_general(request):
     )
 
 def activate_federacio(request, federacio_num):
-    if request.method == "POST":
-        federacio_existeix = SolicitudFederacio.objects.filter(numero=str(federacio_num)).exists()
-        if federacio_existeix:
-            federacio =  SolicitudFederacio.objects.get(numero=str(federacio_num))
+    federacio_existeix = SolicitudFederacio.objects.filter(numero=str(federacio_num)).exists()
+    if federacio_existeix:
+        federacio =  SolicitudFederacio.objects.get(numero=str(federacio_num))
 
-            # checkear que no tenga el cliente una federación activa:
-            federacio_actives = SolicitudFederacio.objects.filter(client=federacio.client, concedida=True, dataCaducitat__gt=date.today()).count()
-            if federacio_actives >= 1:
-                raise BadRequest("Ya tiene una federación existente.")
-            if not federacio.concedida:
-                federacio.concedida=True
+        # checkear que no tenga el cliente una federación activa:
+        federacio_actives = SolicitudFederacio.objects.filter(client=federacio.client, concedida=True, dataCaducitat__gt=date.today()).count()
+        if federacio_actives >= 1:
+            raise BadRequest("Ya tiene una federación existente.")
+        if not federacio.concedida:
+            federacio.concedida=True
+            numero_inscripcion_f=randint(10000000000000,99999999999999)
+            num_federacio_existeix = SolicitudFederacio.objects.filter(numFederacio=numero_inscripcion_f).exists()
+            while num_federacio_existeix:
                 numero_inscripcion_f=randint(10000000000000,99999999999999)
                 num_federacio_existeix = SolicitudFederacio.objects.filter(numFederacio=numero_inscripcion_f).exists()
-                while num_federacio_existeix:
-                    numero_inscripcion_f=randint(10000000000000,99999999999999)
-                    num_federacio_existeix = SolicitudFederacio.objects.filter(numFederacio=numero_inscripcion_f).exists()
-                data_final = federacio.data + relativedelta(years=+1)
-                federacio.dataCaducitat=data_final
-                federacio.numFederacio=numero_inscripcion_f
-                federacio.save()
-        else:
-            raise BadRequest("Federacio no existe.")
+            data_final = federacio.data + relativedelta(years=+1)
+            federacio.dataCaducitat=data_final
+            federacio.numFederacio=numero_inscripcion_f
+            federacio.save()
+    else:
+        raise BadRequest("Federacio no existe.")
 
     return federacions_general(request)
 

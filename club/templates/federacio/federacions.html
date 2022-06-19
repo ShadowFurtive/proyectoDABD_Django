@@ -36,7 +36,7 @@
                 <td>{{ field.dataCaducitat |default_if_none:'' }}</td>
                 <td>{{ field.client.DNI |default_if_none:'' }}</td>
                 {% if not field.concedida %}
-                    <td method="POST"><button type="button" class="btn btn-success"  onclick="location.href='{% url 'activate_federacio' federacio_num=field.numero %}';">Activar</button></td>
+                    <td><button type="button" class="btn btn-success"  onclick="location.href='{% url 'activate_federacio' federacio_num=field.numero %}';">Activar</button></td>
                 {% else %}
                     <td><button type="button" class="btn btn-light" >Activar</button></td>
                 {% endif %}
